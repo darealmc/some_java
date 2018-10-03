@@ -1,0 +1,45 @@
+<project>
+
+    <property name="lib.dir" value="/usr/share/ant/lib" />
+    <path id="classpath">
+        <pathelement location="${lib.dir}/ant-junit4.jar"/>
+        <pathelement location="${lib.dir}/ant-junit"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/hello.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="hello"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/hello.jar" fork="true"/>
+    </target>
+
+    <target name="junit" depends="jar">
+        <junit printsummary="yes">
+           
+                <classpath path="${lib.dir}">
+                <path refid="classpath"/>
+                </classpath>
+           
+
+            <batchtest fork="yes">
+                <fileset dir="src" includes="**/*test.java"/>
+            </batchtest>
+        </junit>
+    </target>
+
+</project>
