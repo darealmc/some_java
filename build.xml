@@ -37,7 +37,7 @@
            
 
             <batchtest fork="yes">
-                <fileset dir="src" includes="**/*test.java"/>
+                <fileset dir="test" includes="**/*test.java"/>
             </batchtest>
         </junit>
     </target>
