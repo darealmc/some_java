@@ -9,12 +9,22 @@
     <target name="clean">
         <delete dir="build"/>
     </target>
+    <target name="tcomp">
+        <javac srcdir="test" destdir="test"/>
+    </target>
 
     <target name="compile">
         <mkdir dir="build/classes"/>
         <javac srcdir="src" destdir="build/classes"/>
     </target>
-
+    <target name="tjar" depends="tcomp">
+        <jar destfile="test/hello.jar" basedir="test/hello">
+            <manifest>
+                <attribute name="Test-Class" value="hellotest"/>
+            </manifest>
+       </jar>
+    </target>
+             
     <target name="jar">
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/hello.jar" basedir="build/classes">
@@ -28,18 +38,14 @@
         <java jar="build/jar/hello.jar" fork="true"/>
     </target>
 
-    <target name="junit" depends="jar">
+    <target name="junit" depends="tjar">
         <junit printsummary="yes">
-        <formatter type="plain" usefile="false"/>
+        <classpath refid="classpath" />
+        <classpath location="test"/>
+        <test name="hellotest" haltonfailure="no" todir="test/results">
+        <formatter type="plain"/>
         <formatter type="xml"/>
-                <classpath path="${lib.dir}">
-                <path refid="classpath"/>
-                </classpath>
-           
-
-            <batchtest fork="yes" todir="test/results">
-                <fileset dir="test" includes="**/*test.java"/>
-            </batchtest>
+        </test>
         </junit>
     </target>
 
