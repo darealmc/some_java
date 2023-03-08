@@ -2,6 +2,8 @@
 
     <property name="lib.dir" value="/usr/share/ant/lib" />
     <path id="classpath">
+        <pathelement location="C:\Softwares\apache-ant-1.9.16\ant-junit.jar"/>
+        <pathelement location="C:\Softwares\apache-ant-1.9.16\ant-junit4.jar"/>
         <pathelement location="${lib.dir}/ant-junit4.jar"/>
         <pathelement location="${lib.dir}/ant-junit"/>
     </path>
